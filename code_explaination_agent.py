@@ -23,7 +23,7 @@ def code_explanation_tool(query: str) -> str:
     
     try:
         response = explanation_llm.invoke(explanation_prompt)
-        return response.content # type: ignore
+        return response.content
     except Exception as e:
         print(f"Error during code explanation: {e}")
         return "Could not explain this concept at the moment."
