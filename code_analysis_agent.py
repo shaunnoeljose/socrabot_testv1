@@ -24,7 +24,7 @@ def code_analysis_tool(code_snippet: str) -> str:
     
     try:
         response = analysis_llm.invoke(analysis_prompt)
-        return response.content
+        return response.content # type: ignore
     except Exception as e:
         print(f"Error during code analysis: {e}")
         return "Could not perform code analysis at this moment."

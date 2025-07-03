@@ -1,11 +1,10 @@
-# socratic_bot_logic.py
 import google.generativeai as genai
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 
-# Import the individual tool functions from their new modules
+# Import the individual tool functions
 from code_analysis_agent import code_analysis_tool
 from code_explaination_agent import code_explanation_tool
 from challenge_generator_agent import challenge_generator_tool
@@ -22,10 +21,10 @@ class SocraticBot:
             model_name (str): The name of the Gemini model to use.
             temperature (float): The sampling temperature for the LLM.
         """
-        # Explicitly configure the generativeai library with the API key
+        # Configuring the API key
         genai.configure(api_key=api_key) # type: ignore
 
-        # Initialize the base LLM for the Socratic persona and tool calling
+        # Initialize the base LLM
         self.llm = ChatGoogleGenerativeAI(model=model_name, temperature=temperature)
         
         self.chat_history = [] # Stores HumanMessage and AIMessage objects

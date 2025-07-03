@@ -35,13 +35,11 @@ def challenge_generator_tool(topic: str, difficulty_level: int) -> str:
         f"\nNow, generate the challenge for the user on the topic '{topic}' at a {mapped_difficulty} level."
     )
 
-    # Removed google_api_key=genai.get_default_api_key() - it uses the globally configured key
     challenge_llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7)
 
     try:
         response = challenge_llm.invoke(challenge_prompt)
-        # Add a clear intro for the challenge
-        return "Here's a fill-in-the-blanks challenge for you based on our topic:\n\n" + response.content
+        return "Here's a fill-in-the-blanks challenge for you based on our topic:\n\n" + response.content # type: ignore
     except Exception as e:
         print(f"Error during challenge generation: {e}")
         return "Could not generate a challenge at this moment."

@@ -46,7 +46,7 @@ def mcq_generator_tool(topic: str, difficulty_level: int) -> str:
 
     try:
         response = mcq_llm.invoke(mcq_prompt)
-        return response.content
+        return response.content # type: ignore
     except Exception as e:
         print(f"Error during MCQ generation: {e}")
         return "Could not generate a multiple-choice question at this moment."

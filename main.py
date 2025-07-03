@@ -7,34 +7,32 @@ def main():
     """
     Main function to run the Socratic Python Tutor in a console interface.
     """
-    # Initializing the logger
+    # Initializing logger
     logger = setup_logging()
     logger.info("Socratic Bot session started.")
 
     google_api_key = load_environment_variables()
-    bot = SocraticBot(api_key=google_api_key)
+    bot = SocraticBot(api_key=google_api_key) # type: ignore
 
-    print("=" * 50)
+    print("=" * 30)
     print("Socratic Python Tutor (Console Demo)")
     print("Type 'exit' or 'quit' to end the session.")
     print("Type 'hint' for a clue.")
     print("Type 'easier' or 'harder' to adjust difficulty.")
     print("Just paste your Python code directly for review anytime.")
     print("Type 'I understand' or 'challenge me' for a fill-in-the-blanks challenge.")
-    print("=" * 50)
+    print("=" * 30)
     logger.info("Displayed initial instructions to user.")
 
-
-    # Initial interactive greeting
     initial_topic = "variables in Python"
-    bot.update_current_topic(initial_topic) # Set the initial topic for the bot
+    bot.update_current_topic(initial_topic)
 
     welcome_message = f"Hello! I'm your Socratic Python Tutor. Today, we can start with '{initial_topic}'."
     print(f"Bot: {welcome_message}")
     bot.add_message_to_history(AIMessage(content=welcome_message))
     logger.info(f"Bot: {welcome_message}")
 
-    # Present options to the user
+    # Give options to the user
     options_message = "\nBot: Would you like to:\n1. Test your knowledge on variables in Python?\n2. Learn more about variables in Python?\nPlease type '1' or '2'."
     print(options_message)
     logger.info(options_message)
@@ -119,13 +117,13 @@ def main():
                 logger.warning("User entered empty input.")
                 continue
             else:
-                # For regular input (text or code, including "I understand" or "challenge me")
+                # For regular input - text or code (I understand, challenge me)
                 bot.add_message_to_history(HumanMessage(content=user_input))
                 bot_response_text = bot.send_message_to_llm(user_input, hint_requested=False)
                 print(f"Bot: {bot_response_text}")
                 logger.info(f"Bot: {bot_response_text}")
                 
-                # Adjust difficulty based on the bot's response (heuristic)
+                # Adjusting difficulty based on the bot's response
                 bot.adjust_difficulty_based_on_response(bot_response_text, False) 
 
         except Exception as e:
