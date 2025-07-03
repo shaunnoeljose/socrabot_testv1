@@ -1,0 +1,10 @@
+langchain
+langchain-google-genai
+python-dotenv
+google-generativeai
+flask
+aiohttp
+markdownify
+pdfplumber
+pytz
+beautifulsoup4
